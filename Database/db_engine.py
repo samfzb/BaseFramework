@@ -3,18 +3,18 @@
 from sqlalchemy import create_engine
 
 
-__ENGINE__ = None
+_ENGINE = None
 
 
 def init_engine(conn_string, echo=True):
-    global __ENGINE__
-    __ENGINE__ = create_engine(conn_string, echo=echo)
+    global _ENGINE
+    _ENGINE = create_engine(conn_string, echo=echo)
 
 
 def get_engine():
-    global __ENGINE__
+    global _ENGINE
 
-    if __ENGINE__:
-        return __ENGINE__
+    if _ENGINE:
+        return _ENGINE
     else:
         raise SystemError("sqlaclchemy was not initialize!")

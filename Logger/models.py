@@ -2,13 +2,10 @@
 
 from datetime import datetime
 
-from Desire.FrameWork.Database import db_engine
-from Desire.FrameWork.Database import db_session
-
 from sqlalchemy import *
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+from Desire.BaseFramework.Database.db_base import Base
+
 
 class ModelLogger(Base):
     __tablename__ = "logger"
@@ -21,9 +18,3 @@ class ModelLogger(Base):
     log_time = Column(DateTime, default=datetime.now)
     message = Column(Text)
     __table_args__ = (Index('app_name', 'mod_name', 'log_time'), )
-
-
-def init():
-    db_session.get_session()
-
-    Base.metadata.create_all(db_engine.get_engine())
