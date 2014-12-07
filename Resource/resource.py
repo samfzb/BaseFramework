@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import json
+import copy
 
 
 class Resource(object):
@@ -48,7 +49,7 @@ class Resource(object):
             "state": self.state
         }
         for key, value in self.attrs.items():
-            obj[key] = value
+            obj[key] = copy.deepcopy(value)
 
         obj["sub_res"] = self.sub_resources
 

@@ -4,8 +4,7 @@ import sys
 import logging
 
 from .models import ModelLogger
-from Desire.BaseFrameWork.Logger import models
-from Desire.BaseFrameWork.Database import db_session
+from Desire.BaseFramework.Database import db_session
 
 
 LOG_LEVEL = {
@@ -19,8 +18,6 @@ LOG_LEVEL = {
 
 class _Logger(object):
     def __init__(self, app_name, log_file=None, level="DEBUG", use_db=False):
-        if use_db:
-            models.init()
         self.app_name = app_name
         self.use_db = use_db
         if self.use_db:
@@ -52,10 +49,26 @@ class _Logger(object):
             new_record.message = message
 
             session.add(new_record)
-            session.commit()
+            #session.commit()
+            session.flush()
 
         dst_message = "(%s) - %s" % (mod_name, message)
         self.logger.log(dst_level, dst_message)
+
+    def info(self, mod_name, message):
+        self.log(mod_name, "INFO", message)
+
+    def debug(self, mod_name, message):
+        self.log(mod_name, "DEBUG", message)
+
+    def warn(self, mod_name, message):
+        self.log(mod_name, "WARN", message)
+
+    def crit(self, mod_name, message):
+        self.log(mod_name, "CRIT", message)
+
+    def error(self, mod_name, message):
+        self.log(mod_name, "ERROR", message)
 
 
 _LOGGER = None

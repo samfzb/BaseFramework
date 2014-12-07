@@ -14,3 +14,5 @@ def setup():
     db_session.get_session()
 
     Base.metadata.create_all(db_engine.get_engine())
+
+__all__ = ("setup")

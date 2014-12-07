@@ -102,3 +102,10 @@ class RPCProxy(object):
     def call(self, request):
         self.socket.send_json(request)
         return self.socket.recv_json()
+
+
+__all__ = (
+    "service",
+    "RPCServer",
+    "RPCProxy"
+)
